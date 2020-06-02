@@ -1,51 +1,27 @@
 
-# Welcome to your CDK Python project!
+# Stop EC2 Automatically
 
-This is a blank project for Python development with CDK.
+This CDK project will generate a CloudFormation template that monitors for EC2's started by a user 
+of a particular group, and will terminate those instances after a duration.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the .env
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
-
-To manually create a virtualenv on MacOS and Linux:
-
+To deploy the project, use the command:
 ```
-$ python -m venv .env
+cdk deploy -c GROUP_NAME="Students" -c DURATION=3
 ```
+    
+Replace "Students" with your group name and 3 with the number of minutes to wait.
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
+A CloudWatch rule will look for EC2 creation, and kick off a Step Function that uses lambda functions
+to check if the user belongs to a group, and another lambda function to terminate those instances.
 
-```
-$ source .env/bin/activate
-```
+If the EC2 creator is not part of the target group, the user is root, or is a cross account role, the
+step function will simply exit.
 
-If you are a Windows platform, you would activate the virtualenv like this:
-
-```
-% .env\Scripts\activate.bat
-```
-
-Once the virtualenv is activated, you can install the required dependencies.
-
-```
-$ pip install -r requirements.txt
-```
-
-At this point you can now synthesize the CloudFormation template for this code.
-
-```
-$ cdk synth
-```
-
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
+If the lambda functions or Step function fail, a CloudWatch alarm will be generated.
+ 
+The user must setup the AWS CDK.
+Python 3.7 is used.
+The python packages are loaded with a Pipefile using Pipenv.
 
 ## Useful commands
 
