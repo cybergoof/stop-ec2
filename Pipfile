@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+"aws-cdk.aws-sns" = "*"
+"aws-cdk.aws-iam" = "*"
+"aws-cdk.aws-lambda" = "*"
+"aws-cdk.aws-cloudwatch" = "*"
+"aws-cdk.aws-events" = "*"
+"aws-cdk.aws-events-targets" = "*"
+"aws-cdk.aws-sns-subscriptions" = "*"
+"aws-cdk.aws-sqs" = "*"
+python-lambda-local = "*"
+"aws-cdk.aws-logs" = "*"
+"aws-cdk.aws-stepfunctions" = "*"
+"aws-cdk.aws-stepfunctions-tasks" = "*"
+boto = "*"
+boto3 = "*"
+
+[requires]
+python_version = "3.7"
